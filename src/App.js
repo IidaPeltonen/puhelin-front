@@ -32,7 +32,7 @@ const App = () => {
       //jos uusi hlö on jo  luettelossa
   const existingPerson = persons.find(item => {
     return (
-      item.name.toLowerCase() === body.name.toLowerCase()
+      item.name.toLowerCase() === newPerson.toLowerCase()
     )
   }) 
      /* let samaNimi = false
@@ -76,7 +76,7 @@ const App = () => {
         }
         console.log('objekti', personObject)
         console.log('id', id)
-        console.log('samanimi' , samaNimi)
+        console.log('existingPerson' , existingPerson)
       } else {
         personService
         .create(personObject)
@@ -93,7 +93,7 @@ const App = () => {
       }
       console.log('objekti', personObject)
       console.log('id', id)
-      console.log('samanimi' , samaNimi)
+      console.log('existingPerson' , existingPerson)
     }
 
     const handlePersonChange = e => {
