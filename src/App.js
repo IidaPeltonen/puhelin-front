@@ -28,16 +28,9 @@ const App = () => {
         number: newNumber
       }
       let id
+      let samaNimi = false
 
-      //jos uusi hlö on jo  luettelossa
-  const existingPerson = persons.find(item => {
-    return (
-      item.name.toLowerCase() === newPerson.toLowerCase()
-    )
-  }) 
-     /* let samaNimi = false
-
-       //käydään taulukon nimet läpi ja verrataan
+      //käydään taulukon nimet läpi ja verrataan
       persons.forEach((item, index) => {
         //jos sama nimi löytyy
         if (item.name.toLowerCase() === newPerson.toLowerCase()) {
@@ -45,9 +38,9 @@ const App = () => {
           // vaihdetaan "uuden" idksi vanhan id
           id = item.id
         }
-      }) */
+      })
 
-      if (existingPerson) {
+      if (samaNimi) {
         let vastaus = window.confirm(`${newPerson} löytyy jo luettelosta, päivitetäänkö numero?`)
         if (!vastaus) {
           setNewPerson('')
@@ -60,7 +53,7 @@ const App = () => {
               console.log("Muokattiin: ", newPerson);
               setNewPerson('')
               setNewNumber('')
-                setSuccess(`${returnedPerson.name} n numero päivitetty ja tästä se tulee!`);
+                setSuccess(`${returnedPerson.name} n numero päivitetty!`);
                 setTimeout(() => {
                   setSuccess(null);
                   window.location.reload(false);
@@ -76,7 +69,7 @@ const App = () => {
         }
         console.log('objekti', personObject)
         console.log('id', id)
-        console.log('existingPerson' , existingPerson)
+        console.log('samanimi' , samaNimi)
       } else {
         personService
         .create(personObject)
@@ -93,7 +86,7 @@ const App = () => {
       }
       console.log('objekti', personObject)
       console.log('id', id)
-      console.log('existingPerson' , existingPerson)
+      console.log('samanimi' , samaNimi)
     }
 
     const handlePersonChange = e => {
