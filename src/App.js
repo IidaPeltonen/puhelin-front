@@ -12,90 +12,81 @@ const App = () => {
   const [success, setSuccess] = useState('')
   const [error, setError] = useState('')
 
-   useEffect(() => {
-    personService
-      .getAll()
-      .then(initialPersons => {
-        setPersons(initialPersons)
-      })
-  }, []) 
+  useEffect(() => {
+    personService.getAll().then(initialPersons => {
+      setPersons(initialPersons)
+    })
+  }, [])
 
-    //uuden lisäys
-    const LisaaUusi = e => {
-      e.preventDefault()
-      const personObject = {
-        name: newPerson,
-        number: newNumber
+  //uuden lisäys
+  const LisaaUusi = e => {
+    e.preventDefault()
+    const personObject = {
+      name: newPerson,
+      number: newNumber
+    }
+    let id
+    let samaNimi = false
+
+    //käydään taulukon nimet läpi ja verrataan
+    persons.forEach((item, index) => {
+      //jos sama nimi löytyy
+      if (item.name.toLowerCase() === newPerson.toLowerCase()) {
+        samaNimi = true
+        // vaihdetaan "uuden" idksi vanhan id
+        id = item.id
       }
-      let id
-      let samaNimi = false
+    })
 
-      //käydään taulukon nimet läpi ja verrataan
-      persons.forEach((item, index) => {
-        //jos sama nimi löytyy
-        if (item.name.toLowerCase() === newPerson.toLowerCase()) {
-          samaNimi = true
-          // vaihdetaan "uuden" idksi vanhan id
-          id = item.id
-        }
-      })
-
-      if (samaNimi) {
-        let vastaus = window.confirm(`${newPerson} löytyy jo luettelosta, päivitetäänkö numero?`)
-        if (!vastaus) {
-          setNewPerson('')
-          setNewNumber('') 
-        } else {
-          personService
-            .update(id, personObject)
-            .then((returnedPerson) => {
-              setPersons(persons.concat(returnedPerson))
-              console.log("Muokattiin: ", newPerson);
-              setNewPerson('')
-              setNewNumber('')
-                setSuccess(`${returnedPerson.name} n numero päivitetty!`);
-                setTimeout(() => {
-                  setSuccess(null);
-                  window.location.reload(false);
-                }, 5000);
-              })
-            .catch((error) => {
-              setError(`${newPerson} n tiedot on jo poistettu`)
-              setTimeout(() => {
-                setError(null);
-                window.location.reload(false);
-              }, 5000);
-            })
-        }
-        console.log('objekti', personObject)
-        console.log('id', id)
-        console.log('samanimi' , samaNimi)
+    if (samaNimi) {
+      let vastaus = window.confirm(
+        `${newPerson} löytyy jo luettelosta, päivitetäänkö numero?`
+      )
+      if (!vastaus) {
+        setNewPerson('')
+        setNewNumber('')
       } else {
         personService
-        .create(personObject)
-        .then(returnedPerson => {
-          setPersons(persons.concat(returnedPerson))
-          setNewPerson('')
-          setNewNumber('')
-          setSuccess(newPerson + ' lisätty luetteloon')
-          setTimeout(() => {
-            setSuccess(null);
-            window.location.reload(false);
-          }, 5000);
-        })
+          .update(id, personObject)
+          .then(returnedPerson => {
+            setPersons(persons.concat(returnedPerson))
+            setNewPerson('')
+            setNewNumber('')
+            setSuccess(`${returnedPerson.name} n numero päivitetty!`)
+            setTimeout(() => {
+              setSuccess(null)
+              window.location.reload(false)
+            }, 5000)
+          })
+          .catch(error => {
+            setError(`${newPerson} n tiedot on jo poistettu`)
+            setTimeout(() => {
+              setError(null)
+              window.location.reload(false)
+            }, 5000)
+          })
       }
-      console.log('objekti', personObject)
-      console.log('id', id)
-      console.log('samanimi' , samaNimi)
+    } else {
+      personService.create(personObject).then(returnedPerson => {
+        setPersons(persons.concat(returnedPerson))
+        setNewPerson('')
+        setNewNumber('')
+        setSuccess(newPerson + ' lisätty luetteloon')
+        setTimeout(() => {
+          setSuccess(null)
+          window.location.reload(false)
+        }, 5000)
+      })
     }
+  }
 
-    const handlePersonChange = e => {
-      setNewPerson(e.target.value)
-    }
-  
-    const handleNumberChange = e => {
-      setNewNumber(e.target.value)
-    }
+  const handlePersonChange = e => {
+    setNewPerson(e.target.value)
+  }
+
+  const handleNumberChange = e => {
+    setNewNumber(e.target.value)
+  }
 
   return (
     <div>
@@ -109,7 +100,7 @@ const App = () => {
         Numero: <input value={newNumber} onChange={handleNumberChange} />
         <br />
         <button type='submit'>Tallenna</button>
-      </form>  
+      </form>
     </div>
   )
 }
