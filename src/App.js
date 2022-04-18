@@ -67,9 +67,6 @@ const App = () => {
               }, 5000);
             })
         }
-        console.log('objekti', personObject)
-        console.log('id', id)
-        console.log('samanimi' , samaNimi)
       } else {
         personService
         .create(personObject)
@@ -83,10 +80,11 @@ const App = () => {
             window.location.reload(false);
           }, 5000);
         })
+        .catch(error => {
+          console.log(error.response.data)
+          setError(error.response.data)
+        })
       }
-      console.log('objekti', personObject)
-      console.log('id', id)
-      console.log('samanimi' , samaNimi)
     }
 
     const handlePersonChange = e => {
