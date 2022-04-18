@@ -79,11 +79,6 @@ const App = () => {
             window.location.reload(false);
           }, 5000);
         })
-/*         .catch(error => {
-          const virhe = error.response.data
-          setError('Error: ' + virhe)
-          console.log(error.response.data)
-        }) */
       }
     }
 
