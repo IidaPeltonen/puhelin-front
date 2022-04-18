@@ -66,8 +66,12 @@ const App = () => {
             }, 5000)
           })
       }
-    } else {
-      personService.create(personObject).then(returnedPerson => {
+    } 
+    //jos nimi on oikeasti uusi
+    else {
+      personService
+        .create(personObject)
+        .then(returnedPerson => {
         setPersons(persons.concat(returnedPerson))
         setNewPerson('')
         setNewNumber('')
@@ -76,6 +80,9 @@ const App = () => {
           setSuccess(null)
           window.location.reload(false)
         }, 5000)
+      })
+      .catch(error => {
+        console.log(error.response.data)
       })
     }
   }
