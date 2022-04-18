@@ -82,7 +82,8 @@ const App = () => {
         })
         .catch(error => {
           console.log(error.response.data)
-          setError(error.response.data)
+          let virhe = error.rewspinse.data
+          setError(error)
         })
       }
     }
