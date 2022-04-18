@@ -50,6 +50,7 @@ const App = () => {
             .update(id, personObject)
             .then((returnedPerson) => {
               setPersons(persons.concat(returnedPerson))
+              console.log("Muokattiin: ", newPerson);
               setNewPerson('')
               setNewNumber('')
                 setSuccess(`${returnedPerson.name} n numero päivitetty!`);
@@ -66,6 +67,9 @@ const App = () => {
               }, 5000);
             })
         }
+        console.log('objekti', personObject)
+        console.log('id', id)
+        console.log('samanimi' , samaNimi)
       } else {
         personService
         .create(personObject)
@@ -80,6 +84,9 @@ const App = () => {
           }, 5000);
         })
       }
+      console.log('objekti', personObject)
+      console.log('id', id)
+      console.log('samanimi' , samaNimi)
     }
 
     const handlePersonChange = e => {
