@@ -81,9 +81,6 @@ const App = () => {
           window.location.reload(false)
         }, 5000)
       })
-      .catch(error => {
-        console.log(error.response.data)
-      })
     }
   }
 
