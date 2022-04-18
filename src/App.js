@@ -50,7 +50,6 @@ const App = () => {
             .update(id, personObject)
             .then((returnedPerson) => {
               setPersons(persons.concat(returnedPerson))
-              console.log("Muokattiin: ", newPerson);
               setNewPerson('')
               setNewNumber('')
                 setSuccess(`${returnedPerson.name} n numero päivitetty!`);
@@ -80,11 +79,11 @@ const App = () => {
             window.location.reload(false);
           }, 5000);
         })
-        .catch(error => {
+/*         .catch(error => {
           const virhe = error.response.data
           setError('Error: ' + virhe)
           console.log(error.response.data)
-        })
+        }) */
       }
     }
 
