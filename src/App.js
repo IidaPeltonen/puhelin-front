@@ -83,6 +83,11 @@ const App = () => {
       })
       .catch(error => {
         console.log(error.response.data)
+        setError(error.response.data)
+        setTimeout(() => {
+          setError(null)
+          window.location.reload(false)
+        }, 5000)
       })
     }
   }
