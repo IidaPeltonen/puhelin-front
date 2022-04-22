@@ -59,7 +59,8 @@ const App = () => {
             }, 5000)
           })
           .catch(error => {
-            setError(`${newPerson} n tiedot on jo poistettu`)
+            console.log(error.response.data)
+            setError(error.response.data.error)
             setTimeout(() => {
               setError(null)
               window.location.reload(false)
