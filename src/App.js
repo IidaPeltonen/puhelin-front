@@ -83,7 +83,7 @@ const App = () => {
       })
       .catch(error => {
         console.log(error.response.data)
-        setError(error.response.data).toString()
+        setError(error.response.data.error)
         setTimeout(() => {
           setError(null)
           window.location.reload(false)
